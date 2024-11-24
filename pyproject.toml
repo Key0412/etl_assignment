@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "Data Egineering ETL assignment"
+version = "0.1.0"
+description = "Data Engineering ETL task with Python"
+keywords = ["Python", "ETL", "data engineering", "CI/CD"]
+authors = ["Klismam Pereira <kp.franciosi@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pandas = "^2.2.3"
+pre-commit = "^4.0.1"
+pytest = "^8.3.3"
+requests = "^2.32.3"
+coverage = "^7.6.7"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
