@@ -1,6 +1,11 @@
 import pytest
 
+from etl_assignment.logging_config import get_logger, setup_logging
 from etl_assignment.steps.step import Step
+
+setup_logging()
+logger = get_logger()
+logger.debug("Testing Step")
 
 
 class MockStep(Step):
