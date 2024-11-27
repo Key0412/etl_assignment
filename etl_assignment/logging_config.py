@@ -9,7 +9,7 @@ def get_logger() -> logging.Logger:
     """Retrieves the logger instance for the ETL pipeline.
 
     This function initializes or retrieves a logger named 'etl_logger'.
-    It can be used throughout the project to log messages related to ETL processes.
+    It can be used throughout the project to log messages.
 
     Returns:
         logging.Logger: The logger instance with the name 'etl_logger'.
