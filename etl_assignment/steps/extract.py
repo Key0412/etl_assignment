@@ -1,3 +1,4 @@
+# fmt: off
 from pathlib import Path
 
 from pandas import DataFrame, read_xml
@@ -41,19 +42,19 @@ class ExtractXML(Step):
 
 
 class ExtractURLfromXML(Step):
-    def __init__(self, xml_df: DataFrame, file_type: str, select_document: int) -> None:
+    def __init__(self, df: DataFrame, file_type: str, n_doc: int) -> None:
         """Extracts download link from XML DataFrame.
         Filters XML using file type element and document index.
 
         Args:
-            xml_df (DataFrame): The DataFrame containing XML data.
+            df (DataFrame): The DataFrame containing XML data.
             file_type (str): The file type to filter by in the XML data.
-            select_document (int): 0-based index of the document to select.
+            n_doc (int): 0-based index of the document to select.
         """
         super().__init__()
-        self.xml_df = xml_df
+        self.df = df
         self.file_type = file_type
-        self.select_document = select_document
+        self.n_doc = n_doc
 
     def run_step(self) -> None:
         """Extracts download URL for specified file type and document index.
@@ -64,12 +65,12 @@ class ExtractURLfromXML(Step):
         try:
             logger.info(
                 f"""{self.__class__.__name__}: Extracting
-                URL #{self.select_document} file type {self.file_type}"""
+                URL #{self.n_doc} file type {self.file_type}"""
             )
             url = (
-                self.xml_df["download_link"]
-                .loc[self.xml_df["file_type"] == self.file_type]
-                .values[self.select_document]
+                self.df["download_link"]
+                .loc[self.df["file_type"] == self.file_type]
+                .values[self.n_doc]
             )
             self.step_result = {"download_link": url}
             logger.info(
