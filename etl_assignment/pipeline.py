@@ -36,10 +36,10 @@ class Pipeline:
             params.update(self.step_result)
             logger.info(f"Executing step: {step.__name__}")
             logger.info(
-                f"params: {str(
+                f"""params: {str(
                     {k: f'DataFrame ({v.shape}) cols: {list(v.columns)}'
                      if isinstance(v, DataFrame)
-                     else v for k, v in params.items()})}"
+                     else v for k, v in params.items()})}"""
             )
             try:
                 step_instance = step(**params)
@@ -51,9 +51,9 @@ class Pipeline:
             self.step_result = result
             logger.info(f"Step finished: {step.__name__}")
             logger.info(
-                f"result: {str(
+                f"""result: {str(
                     {k: f'DataFrame ({v.shape}) cols: {list(v.columns)}'
                      if isinstance(v, DataFrame)
-                     else v for k, v in result.items()})}"
+                     else v for k, v in result.items()})}"""
             )
         logger.info(f"Pipeline Finished: {self.name}")
