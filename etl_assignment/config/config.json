@@ -1,0 +1,4 @@
+{
+    "TEMP_DIR":"./etl_assignment/temp",
+    "CHUNK_SIZE":8192
+}
