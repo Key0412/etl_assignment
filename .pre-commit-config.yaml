@@ -28,10 +28,6 @@ repos:
     hooks:
     -   id: mypy
         args: [--strict, --ignore-missing-imports]
--   repo: https://github.com/hhatto/autopep8
-    rev: 'v2.3.1'  # select the tag or revision you want, or run `pre-commit autoupdate`
-    hooks:
-    -   id: autopep8
 -   repo: https://github.com/asottile/pyupgrade
     rev: v3.19.0
     hooks:
