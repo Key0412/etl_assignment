@@ -1,11 +1,10 @@
 [tool.poetry]
-name = "Data Egineering ETL assignment"
+name = "etl_assignment"
 version = "0.1.0"
 description = "Data Engineering ETL task with Python"
 keywords = ["Python", "ETL", "data engineering", "CI/CD"]
 authors = ["Klismam Pereira <kp.franciosi@gmail.com>"]
 readme = "README.md"
-package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -15,6 +14,11 @@ pytest = "^8.3.3"
 requests = "^2.32.3"
 coverage = "^7.6.7"
 pytest-cov = "^6.0.0"
+lxml = "^5.3.0"
+s3fs = "^2024.10.0"
+fsspec = "^2024.10.0"
+adlfs = "^2024.7.0"
+gcsfs = "^2024.10.0"
 
 [build-system]
 requires = ["poetry-core"]
