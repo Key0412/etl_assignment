@@ -82,5 +82,5 @@ jobs:
       - name: Run tests
         run: |
           source .venv/bin/activate
-          pytest tests/
+          pytest etl_assignment/tests/
           coverage report
