@@ -1,4 +1,3 @@
-# fmt: off
 from pathlib import Path
 from typing import Callable
 
@@ -35,6 +34,7 @@ class TransformXML(Step):
         self.namespaces = namespaces
         self.iterparse = iterparse
         self.column_map = column_map
+        self.class_name = self.__class__.__name__
 
     def run_step(self) -> None:
         """Parses XML file into DataFrame, optionally remapping column names.
@@ -43,10 +43,7 @@ class TransformXML(Step):
             Exception: If an error occurs during the XML parsing.
         """
         try:
-            logger.info(
-                f"""{self.__class__.__name__}:
-                Processing XML to DataFrame: {self.file_path}"""
-            )
+            logger.info(f"{self.class_name}: XML to DF: {self.file_path}")
             df = read_xml(
                 self.file_path,
                 xpath=self.xpath,
@@ -58,11 +55,9 @@ class TransformXML(Step):
             except TypeError:
                 pass
             self.step_result = {"data": df}
-            logger.info(
-                f"{self.__class__.__name__}: XML processed successfully")
+            logger.info(f"{self.class_name}: XML processed")
         except Exception as e:
-            logger.error(
-                f"{self.__class__.__name__}: Error parsing XML to DataFrame")
+            logger.error(f"{self.class_name}: Error parsing XML to DF")
             raise e
 
 
@@ -92,6 +87,7 @@ class GenerateColumnsFromFullNm(Step):
         """
         super().__init__()
         self.data = data
+        self.class_name = self.__class__.__name__
 
     def run_step(self) -> None:
         """Generates columns: 'a_count' and 'contains_a'.
@@ -104,14 +100,12 @@ class GenerateColumnsFromFullNm(Step):
             Exception: Issue during the generation of the new columns.
         """
         try:
-            logger.info(
-                f"{self.__class__.__name__}: Generating 'a' count columns")
+            logger.info(f"{self.class_name}: Generating 'a' count columns")
             self.data[["a_count", "contains_a"]] = self.data[
                 ["FinInstrmGnlAttrbts.FullNm"]
             ].apply(_generate_a_columns, result_type="expand", axis=1)
             self.step_result = {"data": self.data}
-            logger.info(
-                f"{self.__class__.__name__}: Columns created successfully")
+            logger.info(f"{self.class_name}: Columns created successfully")
         except Exception as e:
-            logger.error(f"{self.__class__.__name__}: Error creating columns")
+            logger.error(f"{self.class_name}: Error creating columns")
             raise e
