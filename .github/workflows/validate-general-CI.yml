@@ -77,10 +77,7 @@ jobs:
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction
       #----------------------------------------------
-      #              run test suite
+      #    run test suite and output coverage file
       #----------------------------------------------
-      - name: Run tests
-        run: |
-          source .venv/bin/activate
-          pytest etl_assignment/tests/
-          coverage report
+      - name: Test with pytest
+        run: poetry run pytest etl_assignment/tests/ --cov
