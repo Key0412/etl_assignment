@@ -1,4 +1,3 @@
-# fmt: off
 from pathlib import Path
 
 from pandas import DataFrame, read_xml
@@ -23,6 +22,7 @@ class ExtractXML(Step):
         self.url = url
         self.xpath = xpath
         self.names = names
+        self.class_name = self.__class__.__name__
 
     def run_step(self) -> None:
         """Parses XML from URL using the XPath and converts it to a DataFrame.
@@ -30,14 +30,14 @@ class ExtractXML(Step):
         Raises:
             Exception: If there is an issue during XML parsing.
         """
+
         try:
-            logger.info(
-                f"{self.__class__.__name__}: Extracting XML from: {self.url}")
+            logger.info(f"{self.class_name}: Extracting XML from: {self.url}")
             df = read_xml(self.url, xpath=self.xpath, names=self.names)
             self.step_result = {"xml_df": df}
-            logger.info(f"{self.__class__.__name__}: XML parsed to DataFrame")
+            logger.info(f"{self.class_name}: XML parsed to DataFrame")
         except Exception as e:
-            logger.error(f"{self.__class__.__name__}: Unable to parse XML")
+            logger.error(f"{self.class_name}: Unable to parse XML")
             raise e
 
 
@@ -55,6 +55,7 @@ class ExtractURLfromXML(Step):
         self.df = df
         self.file_type = file_type
         self.n_doc = n_doc
+        self.class_name = self.__class__.__name__
 
     def run_step(self) -> None:
         """Extracts download URL for specified file type and document index.
@@ -64,7 +65,7 @@ class ExtractURLfromXML(Step):
         """
         try:
             logger.info(
-                f"""{self.__class__.__name__}: Extracting
+                f"""{self.class_name}: Extracting
                 URL #{self.n_doc} file type {self.file_type}"""
             )
             url = (
@@ -73,10 +74,9 @@ class ExtractURLfromXML(Step):
                 .values[self.n_doc]
             )
             self.step_result = {"download_link": url}
-            logger.info(
-                f"{self.__class__.__name__}: URL parsed from XML: {url}")
+            logger.info(f"{self.class_name}: {url} parsed from XML")
         except IndexError as e:
-            logger.error(f"{self.__class__.__name__}: No document found")
+            logger.error(f"{self.class_name}: No document found")
             raise e
 
 
@@ -92,6 +92,7 @@ class DownloadFile(Step):
         super().__init__()
         self.download_link = download_link
         self.utils = utils
+        self.class_name = self.__class__.__name__
 
     def run_step(self) -> None:
         """Downloads the file from the provided download link.
@@ -100,18 +101,12 @@ class DownloadFile(Step):
             Exception: If an error occurs during the download process.
         """
         try:
-            logger.info(
-                f"""{self.__class__.__name__}:
-                Downloading from: {self.download_link}"""
-            )
+            logger.info(f"{self.class_name}: Get {self.download_link}")
             file_path = self.utils.download_file(url=self.download_link)
             self.step_result = {"file_path": file_path}
-            logger.info(
-                f"""{self.__class__.__name__}:
-                    File downloaded successfully: {file_path}"""
-            )
+            logger.info(f"{self.class_name}: Downloaded {file_path}")
         except Exception as e:
-            logger.error(f"{self.__class__.__name__}: Error downloading file")
+            logger.error(f"{self.class_name}: Error downloading file")
             raise e
 
 
@@ -127,6 +122,7 @@ class UnzipFile(Step):
         super().__init__()
         self.file_path = file_path
         self.utils = utils
+        self.class_name = self.__class__.__name__
 
     def run_step(self) -> None:
         """Unzips the file at the specified path.
@@ -135,15 +131,11 @@ class UnzipFile(Step):
             Exception: If an error occurs during unzipping.
         """
         try:
-            logger.info(
-                f"{self.__class__.__name__}: Unzipping: {self.file_path}")
+            logger.info(f"{self.class_name}: Unzipping {self.file_path}")
             self.utils.unzip_file(file_path=self.file_path)
             unzipped_path = self.file_path.with_suffix(".xml")
             self.step_result = {"file_path": unzipped_path}
-            logger.info(
-                f"""{self.__class__.__name__}:
-                    File unzipped successfully: {unzipped_path}"""
-            )
+            logger.info(f"{self.class_name}: Unzipped {unzipped_path}")
         except Exception as e:
             logger.error(f"{self.__class__.__name__}: Error unzipping file")
             raise e
