@@ -41,9 +41,7 @@ class ExtractXML(Step):
 
 
 class ExtractURLfromXML(Step):
-    def __init__(
-        self, xml_df: DataFrame, file_type: str, select_document: int
-    ) -> None:  # noqa: C901 PLR0911
+    def __init__(self, xml_df: DataFrame, file_type: str, select_document: int) -> None:
         """Extracts download link from XML DataFrame.
         Filters XML using file type element and document index.
 
