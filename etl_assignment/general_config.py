@@ -5,11 +5,11 @@ from pathlib import Path
 def get_config() -> tuple[str, int]:
     """Loads and returns TEMP_DIR and CHUNK_SIZE from a JSON file.
 
-    This function reads the configuration data stored in the 'etl_assignment/config/config.json' file
-    and returns the values as a list.
+    Reads the configuration data from 'etl_assignment/config/config.json'
+    file and returns the values as a list.
 
     Returns:
-        list: Values TEMP_DIR for temporary local storage and CHUNK_ZISE for the parsing of data.
+        list: Values TEMP_DIR (local storage) and CHUNK_ZISE (parsing size).
     """
     config_file = Path("etl_assignment/config/config.json")
     with open(config_file) as json_file:
