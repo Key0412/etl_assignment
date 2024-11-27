@@ -34,7 +34,7 @@ class ExtractXML(Step):
         try:
             logger.info(f"{self.class_name}: Extracting XML from: {self.url}")
             df = read_xml(self.url, xpath=self.xpath, names=self.names)
-            self.step_result = {"xml_df": df}
+            self.step_result = {"df": df}
             logger.info(f"{self.class_name}: XML parsed to DataFrame")
         except Exception as e:
             logger.error(f"{self.class_name}: Unable to parse XML")
