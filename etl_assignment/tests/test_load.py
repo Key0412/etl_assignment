@@ -10,7 +10,7 @@ from etl_assignment.steps.load import SaveCSVLocally, UploadToBucket
 
 setup_logging()
 logger = get_logger()
-logger.debug("Testing Load")
+logger.debug("Testing Load Steps")
 
 TEMP_DIR, CHUNK_SIZE = get_config()
 

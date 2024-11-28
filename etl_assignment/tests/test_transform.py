@@ -12,7 +12,7 @@ from etl_assignment.steps.transform import (GenerateColumnsFromFullNm,
 # fmt: on
 setup_logging()
 logger = get_logger()
-logger.debug("Testing Transform")
+logger.debug("Testing Transform Steps")
 
 
 class TestTransformXML:

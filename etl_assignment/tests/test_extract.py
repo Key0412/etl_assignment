@@ -1,21 +1,19 @@
-# isort: off
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pandas as pd
 import pytest
 
+# fmt: off
 from etl_assignment.logging_config import get_logger, setup_logging
-from etl_assignment.steps.extract import (
-    DownloadFile,
-    ExtractURLfromXML,
-    ExtractXML,
-    UnzipFile,
-)
+from etl_assignment.steps.extract import (DownloadFile, ExtractURLfromXML,
+                                          ExtractXML, UnzipFile)
+
+# fmt: on
 
 setup_logging()
 logger = get_logger()
-logger.debug("Testing Extract")
+logger.debug("Testing Extract Steps")
 
 
 class TestExtractXML:
