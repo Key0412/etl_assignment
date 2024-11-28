@@ -61,7 +61,7 @@ class ExtractURLfromXML(Step):
         """Extracts download URL for specified file type and document index.
 
         Raises:
-            IndexError: If no document is found.
+            Exception: If there is an issue during extraction.
         """
         try:
             logger.info(
@@ -75,8 +75,8 @@ class ExtractURLfromXML(Step):
             )
             self.step_result = {"download_link": url}
             logger.info(f"{self.class_name}: {url} parsed from XML")
-        except IndexError as e:
-            logger.error(f"{self.class_name}: No document found")
+        except Exception as e:
+            logger.error(f"{self.class_name}: unable to get URL")
             raise e
 
 
