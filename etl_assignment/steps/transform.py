@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Callable
+from typing import Callable, Union
 
 from pandas import DataFrame, Series, read_xml
 
@@ -16,7 +16,7 @@ class TransformXML(Step):
         xpath: str,
         namespaces: dict[str, str],
         iterparse: dict[str, list[str]],
-        column_map: Callable[[str], str] | None = None,
+        column_map: Union[Callable[[str], str], None] = None,
     ) -> None:
         """Transforms XML file into a DataFrame by parsing specific elements.
 
@@ -25,7 +25,7 @@ class TransformXML(Step):
             xpath (str): XPath expression to extract elements from the XML.
             namespaces (dict): The namespaces used in the XML document.
             iterparse (dict[str, list]): Instructions to parse XML in chunks.
-            column_map (Callable[[str], str] | None, optional):
+            column_map (Union[Callable[[str], str], None], optional):
                 A function to map column names. Defaults to None.
         """
         super().__init__()
